@@ -1,0 +1,14 @@
+body{
+	padding-top: 3rem;
+	font-family: 'Hammersmith One', sans-serif;
+}
+
+rect{
+fill:#997add;
+}
+
+rect:hover{
+fill:#456;
+transition: all ease .5s;
+cursor: crosshair;
+}

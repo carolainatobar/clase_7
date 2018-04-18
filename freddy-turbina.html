@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="w=device-w, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet">
+      <title>D3.js</title>
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="col-12">
+               <h3>Películas más vistas en Chile el año 2017</h3>
+               <h5>"El ejercicio produce endorfinas, las endorfinas te hacen feliz, las personas felices no le disparan a sus maridos" (Legalmente Rubia)</h5>
+               <p>Los datos recogidos para este gráfico están basados en la información de Observatorio Audiovisual , considerando la recaudación final en cartelera. Las cantidades corresponden a los espectadores.</p>
+               <div id="here" class="my-4"></div>
+            </div>
+            <div class="col-12">
+               <nav aria-label="navegador">
+                  <ul class="pagination">
+                     <li class="page-item"><a class="page-link" href="index.html">1</a></li>
+                     <li class="page-item"><a class="page-link" href="funcion.html">2</a></li>
+                     <li class="page-item"><a class="page-link" href="arreglo.html">3</a></li>
+                     <li class="page-item"><a class="page-link" href="objeto.html">4</a></li>
+                     <li class="page-item"><a class="page-link" href="fetch-json.html">5</a></li>
+                     <li class="page-item"><a class="page-link" href="fetch-csv.html">6</a></li>
+                     <li class="page-item active"><a class="page-link" href="freddy-turbina.html">7</a></li>
+                  </ul>
+               </nav>
+            </div>
+         </div>
+      </div>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script>
+
+   var w = 1120, h = 550, radius = 250;
+   
+   var calculo = [
+      {name: 'Cars 3', count: 690000, color: '#d8004a'},
+      {name: 'Piratas del Caribe', count: 830000, color: '#96274b'},
+      {name: 'Spider-Man Homecoming', count: 840000, color: '#d8688e'},
+      {name: 'Annabelle', count: 874000, color: '#e283a3'},
+      {name: 'La bella y la bestia', count: 950000, color: '#ef97b4'},
+    ];
+    
+    var arc = d3.arc().outerRadius(radius - 50).innerRadius(100);
+    
+    var pie = d3.pie().sort(null).value(function(d) { return d.count; });
+
+    var svg = d3.select('#here').append("svg")
+      .attr("width", w)
+      .attr("height", h)
+      .style("background","#ffd6e4")
+      .append("g")
+      .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
+//pie me hace el cálculo autómatico del porcentaje que ocupa cada dato dentro del pie
+    var g = svg.selectAll(".arc")
+      .data(pie(calculo))
+      .enter().append("g");    
+    
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d,i) { return d.data.color; });
+    
+    g.append("text")
+      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.data.name; })
+      .attr("fill","white")
+      .style("font-size","11px")
+
+</script>
+      <!-- jQuery primero, luego Popper.js, y finalmente Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   </body>
+</html>
